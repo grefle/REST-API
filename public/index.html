@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Канцелярія</title>
+    <style>
+        .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .delete-button {
+            background-color: #780000;
+            color: #cdcdcd;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #303030;
+            color: #cdcdcd;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #303030;
+            color: #cdcdcd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #303030;
+            color: #cdcdcd;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Канцелярія</h1>
+
+<h2>Сутність 1</h2>
+<form id="entity1Form">
+    <label for="entity1Name">Назва:</label>
+    <input type="text" id="entity1Name" required>
+    <button type="submit">Створити</button>
+</form>
+
+<ul id="entity1List"></ul>
+
+<h2>Сутність 2</h2>
+<form id="entity2Form">
+    <label for="entity2Name">Назва:</label>
+    <input type="text" id="entity2Name" required>
+    <button type="submit">Створити</button>
+</form>
+
+<ul id="entity2List"></ul>
+
+<script>
+    // Отримати посилання на форми та списки
+    const entity1Form = document.getElementById('entity1Form');
+    const entity1NameInput = document.getElementById('entity1Name');
+    const entity1List = document.getElementById('entity1List');
+
+    const entity2Form = document.getElementById('entity2Form');
+    const entity2NameInput = document.getElementById('entity2Name');
+    const entity2List = document.getElementById('entity2List');
+
+    // Функція для створення нового елемента списку
+    function createListItem(value) {
+        const li = document.createElement('li');
+        li.classList.add('list-item');
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.textContent = '✖';
+
+        const itemText = document.createElement('span');
+        itemText.textContent = value;
+
+        li.appendChild(deleteButton);
+        li.appendChild(itemText);
+        return li;
+    }
+
+    // Додати обробник події для форми сутності 1
+    entity1Form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const entity1Value = entity1NameInput.value.trim();
+        if (entity1Value !== '') {
+            const listItem = createListItem(entity1Value);
+            entity1List.appendChild(listItem);
+            entity1NameInput.value = '';
+        }
+    });
+
+    // Додати обробник події для форми сутності 2
+    entity2Form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const entity2Value = entity2NameInput.value.trim();
+        if (entity2Value !== '') {
+            const listItem = createListItem(entity2Value);
+            entity2List.appendChild(listItem);
+            entity2NameInput.value = '';
+        }
+    });
+
+    // Додати обробник події для видалення елемента списку сутності 1
+    entity1List.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-button')) {
+            const listItem = event.target.parentNode;
+            listItem.remove();
+        }
+    });
+
+    // Додати обробник події для видалення елемента списку сутності 2
+    entity2List.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-button')) {
+            const listItem = event.target.parentNode;
+            listItem.remove();
+        }
+    });
+</script>
+</body>
+</html>
+
